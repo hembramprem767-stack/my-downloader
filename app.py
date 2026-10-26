@@ -8,21 +8,18 @@ def get_link():
     data = request.json
     video_url = data.get('url')
     
+    # Render ke liye sabse simple aur safe options bina ffmpeg ke
     ydl_opts = {
-        'format': 'best/bestvideo+bestaudio/best',  # Sabse best format automatic uthane ke liye
+        'format': 'best',  # Bina ffmpeg ke seedha best format uthane ke liye
         'cookiefile': 'cookies.txt',
-        'noplaylist': True,  # Sirf single video ke liye strict rule
-        'extractor_args': {
-            'youtube': {'player_client': ['android', 'web']}
-        }
+        'noplaylist': True, # Sirf single video
     }
     
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(video_url, download=False)
-            
-            # Direct video download link nikalna
             direct_url = info.get('url')
+            
             if not direct_url and 'entries' in info:
                 direct_url = info['entries'][0].get('url')
                 

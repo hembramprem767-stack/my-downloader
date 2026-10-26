@@ -8,12 +8,9 @@ def get_link():
     data = request.json
     video_url = data.get('url')
     
-    # YouTube OAuth2 login options
     ydl_opts = {
         'format': 'best',
-        'username': 'oauth2',
-        'password': '',
-        'cachedir': '/tmp/.cache',
+        'cookiefile': 'cookies.txt',  # Yeh cookies.txt file ko read karega
         'extractor_args': {'youtube': {'player_client': ['android', 'web']}}
     }
     

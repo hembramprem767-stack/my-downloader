@@ -8,7 +8,11 @@ def get_link():
     data = request.json
     video_url = data.get('url')
     
-    ydl_opts = {'format': 'best'}
+    ydl_opts = {
+        'format': 'best',
+        'extractor_args': {'youtube': {'player_client': ['android', 'web']}}
+    }
+    
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(video_url, download=False)
@@ -19,4 +23,4 @@ def get_link():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
+    

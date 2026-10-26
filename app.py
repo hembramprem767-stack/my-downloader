@@ -10,8 +10,11 @@ def get_link():
     
     ydl_opts = {
         'format': 'best',
-        'cookiefile': 'cookies.txt',  # Yeh cookies.txt file ko read karega
-        'extractor_args': {'youtube': {'player_client': ['android', 'web']}}
+        'cookiefile': 'cookies.txt',
+        'extractor_args': {
+            'youtube': {'player_client': ['android', 'web']},
+            'youtubetab': {'skip': ['authcheck']}  # Yeh naya check bypass karne ke liye hai
+        }
     }
     
     try:

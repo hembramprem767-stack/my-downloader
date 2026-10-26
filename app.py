@@ -8,15 +8,13 @@ def get_link():
     data = request.json
     video_url = data.get('url')
     
-    # Bina cookies ke bot error hatane ke liye mweb aur ios client ka use
+    # YouTube OAuth2 login options
     ydl_opts = {
         'format': 'best',
-        'extractor_args': {
-            'youtube': {
-                'player_client': ['mweb', 'ios']
-            }
-        },
-        'socket_timeout': 15,
+        'username': 'oauth2',
+        'password': '',
+        'cachedir': '/tmp/.cache',
+        'extractor_args': {'youtube': {'player_client': ['android', 'web']}}
     }
     
     try:

@@ -11,9 +11,10 @@ def get_link():
     ydl_opts = {
         'format': 'best',
         'cookiefile': 'cookies.txt',
+        'noplaylist': True,  # Sirf single video uthayega, poori playlist nahi
         'extractor_args': {
             'youtube': {'player_client': ['android', 'web']},
-            'youtubetab': {'skip': ['authcheck']}  # Yeh naya check bypass karne ke liye hai
+            'youtubetab': {'skip': ['authcheck']}
         }
     }
     

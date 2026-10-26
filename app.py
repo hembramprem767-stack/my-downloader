@@ -8,11 +8,13 @@ def get_link():
     data = request.json
     video_url = data.get('url')
     
-    # Render ke liye sabse simple aur safe options bina ffmpeg ke
     ydl_opts = {
-        'format': 'best',  # Bina ffmpeg ke seedha best format uthane ke liye
+        'format': 'best',
         'cookiefile': 'cookies.txt',
-        'noplaylist': True, # Sirf single video
+        'noplaylist': True,
+        'extractor_args': {
+            'youtube': {'player_client': ['android']}
+        }
     }
     
     try:

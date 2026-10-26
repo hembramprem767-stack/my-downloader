@@ -9,19 +9,23 @@ def get_link():
     video_url = data.get('url')
     
     ydl_opts = {
-        'format': 'best',
+        'format': 'best/bestvideo+bestaudio/best',  # Sabse best format automatic uthane ke liye
         'cookiefile': 'cookies.txt',
-        'noplaylist': True,  # Sirf single video uthayega, poori playlist nahi
+        'noplaylist': True,  # Sirf single video ke liye strict rule
         'extractor_args': {
-            'youtube': {'player_client': ['android', 'web']},
-            'youtubetab': {'skip': ['authcheck']}
+            'youtube': {'player_client': ['android', 'web']}
         }
     }
     
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(video_url, download=False)
+            
+            # Direct video download link nikalna
             direct_url = info.get('url')
+            if not direct_url and 'entries' in info:
+                direct_url = info['entries'][0].get('url')
+                
             return jsonify({'status': 'success', 'url': direct_url})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})

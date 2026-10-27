@@ -9,12 +9,9 @@ def get_link():
     video_url = data.get('url')
     
     ydl_opts = {
-        'format': 'best',
+        'format': 'b',  # 'b' ka matlab hai available best single format bina ffmpeg ke
         'cookiefile': 'cookies.txt',
         'noplaylist': True,
-        'extractor_args': {
-            'youtube': {'player_client': ['web']}  # Android ki jagah web client ka use
-        }
     }
     
     try:

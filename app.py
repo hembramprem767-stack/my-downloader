@@ -13,7 +13,7 @@ def get_link():
         'cookiefile': 'cookies.txt',
         'noplaylist': True,
         'extractor_args': {
-            'youtube': {'player_client': ['android']}
+            'youtube': {'player_client': ['web']}  # Android ki jagah web client ka use
         }
     }
     

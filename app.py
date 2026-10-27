@@ -11,9 +11,9 @@ def get_link():
         
     video_url = data.get('url')
     
-    # Ab FFmpeg server par hoga, isliye best high-quality video + audio merging enable hai
+    # 100% Working Config: Cookies, No-Playlist, Android/Web Client, aur Safe Single-File Format
     ydl_opts = {
-        'format': 'bestvideo+bestaudio/best',
+        'format': 'best[ext=mp4]/best',  # Yeh bina FFmpeg ke seedha best single file uthayega
         'cookiefile': 'cookies.txt',                       
         'noplaylist': True,                                
         'extractor_args': {

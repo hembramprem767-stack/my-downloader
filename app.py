@@ -11,13 +11,13 @@ def get_link():
         
     video_url = data.get('url')
     
-    # 100% Working Config: Cookies, No-Playlist, Android/Web Client, aur Safe Single-File Format
+    # Android client use karne se n-challenge aur format error bypass ho jata hai
     ydl_opts = {
-        'format': 'best[ext=mp4]/best',  # Yeh bina FFmpeg ke seedha best single file uthayega
+        'format': 'best',
         'cookiefile': 'cookies.txt',                       
         'noplaylist': True,                                
         'extractor_args': {
-            'youtube': {'player_client': ['android', 'web']}
+            'youtube': {'player_client': ['android']}
         }
     }
     

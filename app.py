@@ -9,7 +9,7 @@ def get_link():
     video_url = data.get('url')
     
     ydl_opts = {
-        'format': 'b',  # 'b' ka matlab hai available best single format bina ffmpeg ke
+        'format': 'best[ext=mp4]/best',  # MP4 single format ya best available stream
         'cookiefile': 'cookies.txt',
         'noplaylist': True,
     }

@@ -6,12 +6,19 @@ app = Flask(__name__)
 @app.route('/get-link', methods=['POST'])
 def get_link():
     data = request.json
+    if not data or 'url' not in data:
+        return jsonify({'status': 'error', 'message': 'URL missing'})
+        
     video_url = data.get('url')
     
+    # Ab FFmpeg server par hoga, isliye best high-quality video + audio merging enable hai
     ydl_opts = {
-        'format': 'best[ext=mp4]/best',  # MP4 single format ya best available stream
-        'cookiefile': 'cookies.txt',
-        'noplaylist': True,
+        'format': 'bestvideo+bestaudio/best',
+        'cookiefile': 'cookies.txt',                       
+        'noplaylist': True,                                
+        'extractor_args': {
+            'youtube': {'player_client': ['android', 'web']}
+        }
     }
     
     try:
@@ -19,8 +26,11 @@ def get_link():
             info = ydl.extract_info(video_url, download=False)
             direct_url = info.get('url')
             
-            if not direct_url and 'entries' in info:
+            if not direct_url and 'entries' in info and len(info['entries']) > 0:
                 direct_url = info['entries'][0].get('url')
+                
+            if not direct_url:
+                direct_url = info.get('webpage_url')
                 
             return jsonify({'status': 'success', 'url': direct_url})
     except Exception as e:
